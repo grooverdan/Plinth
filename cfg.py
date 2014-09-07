@@ -18,6 +18,11 @@ parser = SafeConfigParser(
         'pidfile':'%(data_dir)s/pidfile.pid',
         'host':"127.0.0.1",
         'port':"8000",
+        'sslport':"4433",
+        'sslca':'%(data_dir)s/ca.pem',
+        'sslcakey':'%(data_dir)s/cakey.pem',
+        'sslcert':'%(data_dir)s/cert.pem',
+        'sslkey':'%(data_dir)s/key.pem',
         })
 
 # populate empty sections in case file isn't found
@@ -43,6 +48,18 @@ if port:
         port = int(port)
     except ValueError:
         port = int(parser.get('DEFAULT', 'port'))
+
+sslport = parser.get('Network', 'sslport')
+if sslport:
+    try:
+        sslport = int(sslport)
+    except ValueError:
+        sslport = int(parser.get('DEFAULT', 'sslport'))
+
+sslca = parser.get('Path', 'sslca')
+sslcakey = parser.get('Path', 'sslcakey')
+sslcert = parser.get('Path', 'sslcert')
+sslkey = parser.get('Path', 'sslkey')
 
 html_root = None
 main_menu = Menu()
